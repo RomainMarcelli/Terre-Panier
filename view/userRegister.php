@@ -94,7 +94,7 @@ $departments = getDepartments();
                 <label for="password">Mot de passe</label>
                 <input type="password" id="password" name="password" required>
                 <div class="specificite">
-                    <p>7 caractères minimum</p>
+                    <p>12 caractères minimum</p>
                     <p>1 majuscule</p>
                     <p>1 nombre</p>
                 </div>

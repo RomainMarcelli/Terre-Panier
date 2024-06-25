@@ -20,9 +20,8 @@ use function rtrim;
 use function str_starts_with;
 use function trim;
 use PHPUnit\Event\Code\Throwable;
-use PHPUnit\Event\TestData\NoDataSetFromDataProviderException;
 use PHPUnit\Framework\TestStatus\TestStatus;
-use PHPUnit\Logging\TestDox\TestResult;
+use PHPUnit\Logging\TestDox\TestResult as TestDoxTestResult;
 use PHPUnit\Logging\TestDox\TestResultCollection;
 use PHPUnit\TextUI\Output\Printer;
 use PHPUnit\Util\Color;
@@ -76,19 +75,13 @@ final class ResultPrinter
         $this->printer->print($buffer . PHP_EOL);
     }
 
-    /**
-     * @throws NoDataSetFromDataProviderException
-     */
-    private function printTestResult(TestResult $test): void
+    private function printTestResult(TestDoxTestResult $test): void
     {
         $this->printTestResultHeader($test);
         $this->printTestResultBody($test);
     }
 
-    /**
-     * @throws NoDataSetFromDataProviderException
-     */
-    private function printTestResultHeader(TestResult $test): void
+    private function printTestResultHeader(TestDoxTestResult $test): void
     {
         $buffer = ' ' . $this->symbolFor($test->status()) . ' ';
 
@@ -96,8 +89,8 @@ final class ResultPrinter
             $this->printer->print(
                 Color::colorizeTextBox(
                     $this->colorFor($test->status()),
-                    $buffer
-                )
+                    $buffer,
+                ),
             );
         } else {
             $this->printer->print($buffer);
@@ -106,9 +99,13 @@ final class ResultPrinter
         $this->printer->print($test->test()->testDox()->prettifiedMethodName($this->colors) . PHP_EOL);
     }
 
-    private function printTestResultBody(TestResult $test): void
+    private function printTestResultBody(TestDoxTestResult $test): void
     {
         if ($test->status()->isSuccess()) {
+            return;
+        }
+
+        if (!$test->hasThrowable()) {
             return;
         }
 
@@ -117,33 +114,33 @@ final class ResultPrinter
         $this->printTestResultBodyEnd($test);
     }
 
-    private function printTestResultBodyStart(TestResult $test): void
+    private function printTestResultBodyStart(TestDoxTestResult $test): void
     {
         $this->printer->print(
             $this->prefixLines(
                 $this->prefixFor('start', $test->status()),
-                ''
-            )
+                '',
+            ),
         );
 
         $this->printer->print(PHP_EOL);
     }
 
-    private function printTestResultBodyEnd(TestResult $test): void
+    private function printTestResultBodyEnd(TestDoxTestResult $test): void
     {
         $this->printer->print(PHP_EOL);
 
         $this->printer->print(
             $this->prefixLines(
                 $this->prefixFor('last', $test->status()),
-                ''
-            )
+                '',
+            ),
         );
 
         $this->printer->print(PHP_EOL);
     }
 
-    private function printThrowable(TestResult $test): void
+    private function printThrowable(TestDoxTestResult $test): void
     {
         $throwable = $test->throwable();
 
@@ -156,7 +153,7 @@ final class ResultPrinter
         if (!empty($message) && $this->colors) {
             ['message' => $message, 'diff' => $diff] = $this->colorizeMessageAndDiff(
                 $message,
-                $this->messageColorFor($test->status())
+                $this->messageColorFor($test->status()),
             );
         }
 
@@ -164,8 +161,8 @@ final class ResultPrinter
             $this->printer->print(
                 $this->prefixLines(
                     $this->prefixFor('message', $test->status()),
-                    $message
-                )
+                    $message,
+                ),
             );
 
             $this->printer->print(PHP_EOL);
@@ -175,8 +172,8 @@ final class ResultPrinter
             $this->printer->print(
                 $this->prefixLines(
                     $this->prefixFor('diff', $test->status()),
-                    $diff
-                )
+                    $diff,
+                ),
             );
 
             $this->printer->print(PHP_EOL);
@@ -190,7 +187,7 @@ final class ResultPrinter
             }
 
             $this->printer->print(
-                $this->prefixLines($prefix, PHP_EOL . $stackTrace)
+                $this->prefixLines($prefix, PHP_EOL . $stackTrace),
             );
         }
     }
@@ -268,8 +265,8 @@ final class ResultPrinter
             PHP_EOL,
             array_map(
                 static fn (string $line) => '   ' . $prefix . ($line ? ' ' . $line : ''),
-                preg_split('/\r\n|\r|\n/', $message)
-            )
+                preg_split('/\r\n|\r|\n/', $message),
+            ),
         );
     }
 
@@ -290,8 +287,8 @@ final class ResultPrinter
                 'message' => '├',
                 'diff'    => '┊',
                 'trace'   => '╵',
-                'last'    => '┴'
-            }
+                'last'    => '┴',
+            },
         );
     }
 
@@ -313,7 +310,7 @@ final class ResultPrinter
             return 'fg-cyan';
         }
 
-        if ($status->isRisky() || $status->isIncomplete() || $status->isWarning()) {
+        if ($status->isIncomplete() || $status->isDeprecation() || $status->isNotice() || $status->isRisky() || $status->isWarning()) {
             return 'fg-yellow';
         }
 
@@ -338,7 +335,7 @@ final class ResultPrinter
             return 'fg-cyan';
         }
 
-        if ($status->isRisky() || $status->isIncomplete() || $status->isWarning()) {
+        if ($status->isIncomplete() || $status->isDeprecation() || $status->isNotice() || $status->isRisky() || $status->isWarning()) {
             return 'fg-yellow';
         }
 
@@ -359,16 +356,12 @@ final class ResultPrinter
             return '↩';
         }
 
-        if ($status->isRisky()) {
-            return '☢';
+        if ($status->isDeprecation() || $status->isNotice() || $status->isRisky() || $status->isWarning()) {
+            return '⚠';
         }
 
         if ($status->isIncomplete()) {
             return '∅';
-        }
-
-        if ($status->isWarning()) {
-            return '⚠';
         }
 
         return '?';

@@ -23,6 +23,7 @@ use function substr;
 use function trim;
 use PharIo\Version\Exception as PharIoVersionException;
 use PharIo\Version\VersionConstraintParser;
+use PHPUnit\Metadata\AnnotationsAreNotSupportedForInternalClassesException;
 use PHPUnit\Metadata\InvalidVersionRequirementException;
 use ReflectionClass;
 use ReflectionFunctionAbstract;
@@ -37,15 +38,11 @@ use ReflectionMethod;
  */
 final class DocBlock
 {
-    private const REGEX_REQUIRES_VERSION = '/@requires\s+(?P<name>PHP(?:Unit)?)\s+(?P<operator>[<>=!]{0,2})\s*(?P<version>[\d\.-]+(dev|(RC|alpha|beta)[\d\.])?)[ \t]*\r?$/m';
-
+    private const REGEX_REQUIRES_VERSION            = '/@requires\s+(?P<name>PHP(?:Unit)?)\s+(?P<operator>[<>=!]{0,2})\s*(?P<version>[\d\.-]+(dev|(RC|alpha|beta)[\d\.])?)[ \t]*\r?$/m';
     private const REGEX_REQUIRES_VERSION_CONSTRAINT = '/@requires\s+(?P<name>PHP(?:Unit)?)\s+(?P<constraint>[\d\t \-.|~^]+)[ \t]*\r?$/m';
-
-    private const REGEX_REQUIRES_OS = '/@requires\s+(?P<name>OS(?:FAMILY)?)\s+(?P<value>.+?)[ \t]*\r?$/m';
-
-    private const REGEX_REQUIRES_SETTING = '/@requires\s+(?P<name>setting)\s+(?P<setting>([^ ]+?))\s*(?P<value>[\w\.-]+[\w\.]?)?[ \t]*\r?$/m';
-
-    private const REGEX_REQUIRES = '/@requires\s+(?P<name>function|extension)\s+(?P<value>([^\s<>=!]+))\s*(?P<operator>[<>=!]{0,2})\s*(?P<version>[\d\.-]+[\d\.]?)?[ \t]*\r?$/m';
+    private const REGEX_REQUIRES_OS                 = '/@requires\s+(?P<name>OS(?:FAMILY)?)\s+(?P<value>.+?)[ \t]*\r?$/m';
+    private const REGEX_REQUIRES_SETTING            = '/@requires\s+(?P<name>setting)\s+(?P<setting>([^ ]+?))\s*(?P<value>[\w\.-]+[\w\.]?)?[ \t]*\r?$/m';
+    private const REGEX_REQUIRES                    = '/@requires\s+(?P<name>function|extension)\s+(?P<value>([^\s<>=!]+))\s*(?P<operator>[<>=!]{0,2})\s*(?P<version>[\d\.-]+[\d\.]?)?[ \t]*\r?$/m';
     private readonly string $docComment;
 
     /**
@@ -67,8 +64,15 @@ final class DocBlock
     private readonly int $startLine;
     private readonly string $fileName;
 
+    /**
+     * @throws AnnotationsAreNotSupportedForInternalClassesException
+     */
     public static function ofClass(ReflectionClass $class): self
     {
+        if ($class->isInternal()) {
+            throw new AnnotationsAreNotSupportedForInternalClassesException($class->getName());
+        }
+
         return new self(
             (string) $class->getDocComment(),
             self::extractAnnotationsFromReflector($class),
@@ -77,8 +81,15 @@ final class DocBlock
         );
     }
 
+    /**
+     * @throws AnnotationsAreNotSupportedForInternalClassesException
+     */
     public static function ofMethod(ReflectionMethod $method): self
     {
+        if ($method->getDeclaringClass()->isInternal()) {
+            throw new AnnotationsAreNotSupportedForInternalClassesException($method->getDeclaringClass()->getName());
+        }
+
         return new self(
             (string) $method->getDocComment(),
             self::extractAnnotationsFromReflector($method),
@@ -109,6 +120,8 @@ final class DocBlock
      *   string,
      *   string|array{version: string, operator: string}|array{constraint: string}|array<int|string, string>
      * >
+     *
+     * @throws InvalidVersionRequirementException
      */
     public function requirements(): array
     {
@@ -162,7 +175,7 @@ final class DocBlock
                     throw new InvalidVersionRequirementException(
                         $e->getMessage(),
                         $e->getCode(),
-                        $e
+                        $e,
                     );
                 }
             }
@@ -200,8 +213,8 @@ final class DocBlock
                 [
                     'setting'            => $recordedSettings,
                     'extension_versions' => $extensionVersions,
-                ]
-            )
+                ],
+            ),
         );
     }
 
@@ -239,14 +252,14 @@ final class DocBlock
                 $annotations,
                 ...array_map(
                     static fn (ReflectionClass $trait): array => self::parseDocBlock((string) $trait->getDocComment()),
-                    array_values($reflector->getTraits())
-                )
+                    array_values($reflector->getTraits()),
+                ),
             );
         }
 
         return array_merge(
             $annotations,
-            self::parseDocBlock((string) $reflector->getDocComment())
+            self::parseDocBlock((string) $reflector->getDocComment()),
         );
     }
 }
