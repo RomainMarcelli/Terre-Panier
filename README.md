@@ -20,8 +20,11 @@ composer install
 ## Structure du Projet
 
 /src: Code source principal de l'application.
+
 /tests: Tests unitaires.
+
 phpunit.xml.dist: Configuration PHPUnit.
+
 
 # Lancement des Tests
 
