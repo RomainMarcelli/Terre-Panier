@@ -1,0 +1,316 @@
+.chemin_acces p {
+    margin-left: 62px;
+}
+
+.leProduit {
+    background-color: #FEF1E6;
+    border-radius: 20px;
+    width: 90%;
+    margin: auto;
+    padding-bottom: 1px;
+    box-shadow: 0px 4px 4px 0px #00000040;
+    margin-top: 50px;
+}
+
+.leProduit .img_txt {
+    display: flex;
+    justify-content: space-between;
+}
+
+.leProduit .img_txt .img {
+    background-color: #C4C4C4;
+    width: 600px;
+    height: 440px;
+    margin: 42px;
+    margin-bottom: 20px;
+    border-radius: 20px;
+
+}
+
+.leProduit .img_txt .txt {
+    margin: 42px;
+    width: 40%;
+}
+
+.leProduit .fav {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.leProduit .fav img {
+    width: 45px;
+}
+
+.leProduit .img_txt h3 {
+    font-family: 'Poppins';
+    font-size: 30px;
+    font-weight: 900;
+    line-height: 45px;
+    text-align: left;
+    color: #EC5F15;
+    margin-bottom: 45px;
+
+}
+
+.leProduit .img_txt p {
+    font-family: 'Poppins';
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 22.5px;
+    text-align: left;
+}
+
+.leProduit .img_txt .price {
+    display: flex;
+    font-size: 24px;
+    font-weight: 800;
+    font-family: 'Popins';
+    align-items: center;
+    justify-content: space-between;
+}
+
+.leProduit .img_txt .prix {
+    font-family: 'Poppins';
+    font-size: 30px;
+    font-weight: 800;
+    line-height: 45px;
+    text-align: right;
+
+}
+
+.leProduit .img_txt .poid p {
+    font-family: 'Poppins';
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 30px;
+    text-align: right;
+    color: #EC5F15;
+    margin-bottom: 70px;
+}
+
+.leProduit .img_txt .txt .location {
+    display: flex;
+    align-items: center;
+}
+
+.leProduit .img_txt .location p {
+    font-family: 'Poppins';
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 30px;
+    text-align: left;
+    color: #EC5F15;
+    margin-left: 25px;
+
+}
+
+.leProduit button {
+    background-color: #EC5F15;
+    border-radius: 30px;
+    padding: 12px 25px;
+    color: white;
+    border: none;
+    font-size: 16px;
+    margin: auto;
+    display: block;
+    font-weight: 600;
+}
+
+.leProduit button a {
+    color: white;
+    text-decoration: none;
+}
+
+.details {
+    margin: 0 42px;
+}
+
+.details h4 {
+    font-family: 'Poppins';
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 22.5px;
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+.details .description {
+    margin-top: 30px;
+}
+
+.details .description p,
+.details .valeur p {
+    font-family: 'Poppins';
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 22.5px;
+    text-align: left;
+    margin-bottom: 50px;
+}
+
+.details ul {
+    list-style-type: none;
+    margin-bottom: 50px;
+}
+
+.details ul li p {
+    font-family: 'Poppins';
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 22.5px;
+    text-align: left;
+
+}
+
+.txt .price {
+    margin: 40px 0;
+    color: #EC5F15;
+}
+
+.txt #prix {
+    justify-content: center;
+}
+
+hr {
+    height: 1px;
+    background-color: black;
+    width: 100%;
+    margin: 40px 0;
+}
+
+.rencontre {
+    display: flex;
+    margin: 30px 30px 30px 0;
+}
+
+.rencontre .rencontre_txt{
+    margin: 30px 70px 30px 0px;
+}
+
+.rencontre .rencontre_txt p {
+    font-family: 'Poppins';
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 22.5px;
+    text-align: left;
+    color: #2D1805;
+}
+
+.rencontre .rencontre_txt .gras {
+    font-family: 'Poppins';
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 22.5px;
+    text-align: left;
+    color: #2D1805;
+    margin-bottom: 20px;
+}
+
+.rencontre .rencontre_txt .btn_rencontre{
+    margin-top: 100px;
+    padding: 15px 40px;
+}
+
+.rencontre .img_producteur img {
+    width: 321px;
+    height: 407px;
+    border-radius: 15px;
+    object-fit: cover;
+}
+
+@media (max-width: 1300px) {
+    .leProduit .img_txt {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .leProduit .img_txt .img {
+        background-color: #C4C4C4;
+        width: 100%;
+        height: 550px;
+        border-radius: 15px;
+        margin: 42px;
+        margin-bottom: 20px;
+    }
+
+    .leProduit .img_txt .txt {
+        width: 90%;
+    }
+
+    .leProduit .creneau {
+        background-color: #EC5F15;
+        border-radius: 20px;
+        padding: 17px 35px;
+        color: white;
+        border: none;
+        font-size: 22px;
+        /* width: 236px; */
+        margin: auto;
+        /* height: 50px; */
+        display: block;
+        font-weight: 600;
+    }
+}
+
+@media (max-width: 890px){
+    .rencontre .img_producteur img {
+        width: 230px;
+        height: 407px;
+        border-radius: 15px;
+        object-fit: cover;
+    }
+
+    .rencontre .rencontre_txt .btn_rencontre{
+        border-radius: 20px;
+    }
+
+    .rencontre .img_producteur {
+        margin: auto;
+    }
+}
+
+@media (max-width: 710px){
+    .rencontre{
+        display: flex;
+        margin: 30px 30px 30px 0;
+        flex-wrap: wrap;
+        flex-direction: column-reverse;
+    }
+
+    .rencontre .rencontre_txt{
+        margin: 20px 0 20px 0;
+    }
+}
+
+@media (max-width: 470px) {
+    .leProduit .img_txt .price {
+        display: flex;
+        font-size: 24px;
+        font-weight: 800;
+        font-family: wid;
+        flex-wrap: wrap;
+        margin: 0;
+        width: 100%;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .leProduit .img_txt .txt {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .leProduit .img_txt img,
+    .leProduit .img_txt h3,
+    .leProduit .img_txt h3,
+    .leProduit .img_txt .price,
+    .leProduit .img_txt .poid p {
+        margin-bottom: 35px;
+    }
+
+    .leProduit .img_txt .img {
+        height: 315px;
+    }
+}

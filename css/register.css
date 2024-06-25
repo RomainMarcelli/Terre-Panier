@@ -1,0 +1,213 @@
+@import url('https://fonts.googleapis.com/css2?family=Bungee+Shade&family=Swanky+and+Moo+Moo&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bungee+Shade&family=Oswald:wght@200..700&family=Swanky+and+Moo+Moo&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bungee+Shade&family=Oswald:wght@200..700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Swanky+and+Moo+Moo&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bungee+Shade&family=Inter:wght@100..900&family=Oswald:wght@200..700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Swanky+and+Moo+Moo&display=swap');
+
+
+.creation_compte {
+    background-color: #F4C398;
+    box-shadow: 0px 4px 4px 0px #00000040;
+    border-radius: 20px;
+    padding: 35px 90px;
+    margin: 70px;
+}
+
+.creation_compte h1 {
+    font-size: 40px;
+    font-weight: 600;
+    color: #bb5e0f;
+    text-align: center;
+    font-family: "Oswald";
+    text-transform: uppercase;
+    margin-bottom: 30px;
+}
+
+/* .creation_compte {
+    display: flex;
+    flex-direction: column;
+} */
+
+.creation_compte form label {
+    color: #2D1805;
+    font-family: 'Poppins';
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 30px;
+    text-align: left;
+    margin-bottom: 5px
+}
+
+.creation_compte form input {
+    background-color: #FFFFFF;
+    border: 1px solid #8E8A8A;
+    width: 100%;
+    box-sizing: border-box;
+    height: 45px;
+    border-radius: 10px;
+    padding-left: 15px;
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+
+.creation_compte .selection_depart {
+    display: flex;
+    flex-direction: column;
+}
+
+.creation_compte .selection_depart select {
+    background-color: #FFFFFF;
+    border: 1px solid #8E8A8A;
+    /* width: 90%; */
+    height: 45px;
+    border-radius: 10px;
+    padding-left: 15px;
+    margin-bottom: 15px;
+    padding-right: 20px;
+    width: 90%;
+}
+
+.creation_compte button {
+    font-family: 'Inter';
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 19px;
+    letter-spacing: -0.02em;
+    text-align: center;
+    color: #FFFFFF;
+    padding: 20px 40px;
+    background-color: #B05A0E;
+    border: 0;
+    border-radius: 30px;
+    display: block;
+    margin: 30px auto;
+}
+
+.creation_compte .specificite {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 50%;
+    color: #5D5955;
+    font-family: 'Poppins';
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 19.5px;
+    text-align: left;
+
+}
+
+.creation_compte .specificite .minuscule {
+    margin-right: 31px;
+}
+
+.creation_compte .accept_cdgt {
+    display: flex;
+    align-items: center;
+}
+
+.creation_compte .accept_cdgt [type=checkbox] {
+    background-color: #FFFFFF;
+    border: 1px solid #8E8A8A;
+    width: 27px;
+    height: 27px;
+    border-radius: 0;
+    margin-bottom: 0;
+}
+
+.creation_compte .accept_cdgt p {
+    font-family: 'Poppins';
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 22.5px;
+    text-align: left;
+    color: #5D5955;
+}
+
+.creation_compte .accept_cdgt span{
+    text-decoration: underline;
+}
+
+
+/* CREATION DE COMPTE PRO */
+
+
+.creation_compte .regions{
+    display: flex;
+    flex-direction: column;
+}
+
+.creation_compte .regions select {
+    background-color: #FFFFFF;
+    border: 1px solid #8E8A8A;
+    /* width: 90%; */
+    height: 45px;
+    border-radius: 10px;
+    padding-left: 15px;
+    margin-bottom: 15px;
+    padding-right: 20px;
+    width: 100%;
+}
+
+.creation_compte .photo, .creation_compte .description_atelier {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.creation_compte .photo .fichier {
+    display: flex;
+    align-items: center;
+}
+
+.photo label[for="profil_picture"] {
+    display: block;
+    /* margin-bottom: 5px; */
+}
+
+.custom-file-upload {
+    border: 1px solid #8E8A8A;
+    background-color: #DEDBDB;
+    color: #2D1805;
+    padding: 8px 20px;
+    border-radius: 15px;
+    cursor: pointer;
+    display: inline-block;
+    margin-right: 10px;
+    font-family: 'Poppins';
+    font-size: 20px;
+    font-weight: 300;
+    line-height: 30px;
+    text-align: left;
+}
+
+#file-name {
+    vertical-align: middle;
+    color: #5D5955;
+    font-family: 'Poppins';
+    font-size: 15px;
+    font-weight: 300;
+    line-height: 30px;
+    text-align: left;
+}
+
+
+.creation_compte .description_atelier textarea {
+    background-color: #FFFFFF;
+    border: 1px solid #8E8A8A;
+    /* width: 88%; */
+    height: 45px;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 15px;
+    resize: none;
+}
+
+@media(max-width: 660px){
+    .creation_compte{
+        padding: 35px;
+        margin: 70px 20px;
+    }
+
+}
